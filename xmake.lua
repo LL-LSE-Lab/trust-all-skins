@@ -16,11 +16,12 @@ if not has_config("vs_runtime") then
     set_runtimes("MD")
 end
 
-set_version("1.0.0")
+local mod_version = "0.1.0"
+set_version(mod_version)
 
 target("trust-all-skins")
     add_rules("@levibuildscript/linkrule")
-    add_rules("@levibuildscript/modpacker")
+    add_rules("@levibuildscript/modpacker", {modVersion = mod_version})
     if is_plat("windows") then
         add_defines("NOMINMAX", "UNICODE", "LL_PLAT_S")
         set_exceptions("none")
