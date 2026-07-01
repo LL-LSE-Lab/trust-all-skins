@@ -1,0 +1,38 @@
+{
+  "format_version": 3,
+  "format_uuid": "289f771f-2c9a-4d73-9f3f-8492495a924d",
+  "tooth": "github.com/yourusername/trust-all-skins",
+  "version": "1.0.0",
+  "info": {
+    "name": "trust-all-skins",
+    "description": "Makes the server trust all player skins, allowing custom skins to be displayed without requiring clients to disable the 'Only Allow Trusted Skins' option.",
+    "tags": [
+      "platform:levilamina",
+      "type:mod"
+    ],
+    "avatar_url": ""
+  },
+  "variants": [
+    {
+      "platform": "win-x64",
+      "dependencies": {
+        "github.com/LiteLDev/LeviLamina": "1.*"
+      },
+      "assets": [
+        {
+          "type": "zip",
+          "urls": [
+            "https://github.com/yourusername/trust-all-skins/releases/download/v1.0.0/trust-all-skins-windows-x64.zip"
+          ],
+          "placements": [
+            {
+              "type": "dir",
+              "src": "trust-all-skins/",
+              "dest": "plugins/trust-all-skins/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

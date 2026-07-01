@@ -1,0 +1,29 @@
+add_rules("mode.debug", "mode.release", "mode.releasedbg")
+
+add_repositories("liteldev-repo https://github.com/LiteLDev/xmake-repo.git")
+
+add_requires("levilamina")
+
+if not has_config("vs_runtime") then
+    set_runtimes("MD")
+end
+
+target("trust-all-skins")
+    add_cxflags("/EHa", "/utf-8")
+    add_defines("NOMINMAX", "UNICODE", "LL_PLAT_S")
+    add_files("src/**.cpp")
+    add_includedirs("src")
+    add_packages("levilamina")
+    set_exceptions("none")
+    set_kind("shared")
+    set_languages("cxx23")
+
+    after_build(function (target)
+        local mod_packer = import("scripts.after_build")
+        
+        mod_packer.pack_mod(target, {
+            modName = target:name(),
+            modFile = target:name() .. ".dll",
+            modVersion = "1.0.0",
+        })
+    end)
