@@ -12,7 +12,7 @@
 
 ## 工作原理
 
-此模组通过Hook `ServerNetworkHandler::_decideIfSkinIsTrusted` 函数，将所有皮肤的 `mIsTrustedSkin` 标志强制设置为 `True`。当客户端收到标记为受信任的皮肤时，即使开启了"仅允许受信任的皮肤"选项，也会正常显示该皮肤。
+此模组 Hook `ServerNetworkHandler::_decideIfSkinIsTrusted` 与 `PlayerListEntry::write`，在 26.10 上将皮肤数据中的 `mIsTrustedSkin` 设为 `TrustedSkinFlag::True`。客户端开启「仅允许受信任的皮肤」时仍可显示自定义皮肤。
 
 ## 安装
 
@@ -41,7 +41,8 @@ plugins/
 ### 前置要求
 
 - [xmake](https://xmake.io/) 
-- [Visual Studio 2022](https://visualstudio.microsoft.com/) 或更高版本（需要 MSVC 编译器）
+- [Visual Studio 2022](https://visualstudio.microsoft.com/)（C++ 桌面 workload）
+- [LLVM](https://releases.llvm.org/)（提供 `clang-cl`，与 LeviLamina 26.10 一致）
 - [Git](https://git-scm.com/)
 
 ### 构建步骤
@@ -57,9 +58,9 @@ plugins/
    xmake repo -u
    ```
 
-3. 配置构建（可选择 debug/release/releasedbg 模式）：
+3. 配置构建（需 [LLVM/clang-cl](https://releases.llvm.org/) 与 Visual Studio 生成工具）：
    ```bash
-   xmake f -m release
+   xmake f -m release --target_type=server
    ```
 
 4. 构建：
@@ -67,11 +68,13 @@ plugins/
    xmake
    ```
 
-5. 构建完成后，模组文件将位于 `bin/trust-all-skins/` 目录
+5. 构建前请在 **“x64 Native Tools”** 或已执行 `vcvars64.bat` 的环境中运行（否则链接可能找不到 `msvcrt.lib`）
+
+6. 构建完成后，模组目录位于 `bin/trust-all-skins/`（含 `trust-all-skins.dll` 与 `manifest.json`）
 
 ## 兼容性
 
-- LeviLamina 1.x
+- LeviLamina **26.10.x**（与 BDS **26.10.4** 对应）
 - Minecraft Bedrock Edition 专用服务器
 
 ## 注意事项

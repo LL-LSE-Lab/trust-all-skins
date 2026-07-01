@@ -1,29 +1,49 @@
-add_rules("mode.debug", "mode.release", "mode.releasedbg")
+add_rules("mode.debug", "mode.release")
 
 add_repositories("liteldev-repo https://github.com/LiteLDev/xmake-repo.git")
 
-add_requires("levilamina")
+option("target_type")
+    set_default("server")
+    set_showmenu(true)
+    set_values("server", "client")
+option_end()
+
+add_requireconfs("levilamina.rapidjson", {override = true, version = "2025.02.05"})
+add_requires("levilamina 26.10.14", {configs = {target_type = get_config("target_type")}})
+add_requires("levibuildscript")
 
 if not has_config("vs_runtime") then
     set_runtimes("MD")
 end
 
+set_version("1.0.0")
+
 target("trust-all-skins")
-    add_cxflags("/EHa", "/utf-8")
-    add_defines("NOMINMAX", "UNICODE", "LL_PLAT_S")
+    add_rules("@levibuildscript/linkrule")
+    add_rules("@levibuildscript/modpacker")
+    if is_plat("windows") then
+        add_defines("NOMINMAX", "UNICODE", "LL_PLAT_S")
+        set_exceptions("none")
+        add_cxflags("/EHa", "/utf-8", "/W4", "/w44265", "/w44289", "/w44296", "/w45263", "/w44738", "/w45204")
+        add_cxflags(
+            "/EHs",
+            "-Wno-microsoft-cast",
+            "-Wno-invalid-offsetof",
+            "-Wno-c++2b-extensions",
+            "-Wno-microsoft-include",
+            "-Wno-overloaded-virtual",
+            "-Wno-ignored-qualifiers",
+            "-Wno-missing-field-initializers",
+            "-Wno-potentially-evaluated-expression",
+            "-Wno-pragma-system-header-outside-header",
+            {tools = {"clang_cl"}}
+        )
+        set_toolchains("clang-cl")
+    end
+    add_packages("levilamina")
+    set_kind("shared")
+    set_languages("c++20")
+    set_symbols("debug")
+    add_headerfiles("src/**.h")
     add_files("src/**.cpp")
     add_includedirs("src")
-    add_packages("levilamina")
-    set_exceptions("none")
-    set_kind("shared")
-    set_languages("cxx23")
-
-    after_build(function (target)
-        local mod_packer = import("scripts.after_build")
-        
-        mod_packer.pack_mod(target, {
-            modName = target:name(),
-            modFile = target:name() .. ".dll",
-            modVersion = "1.0.0",
-        })
-    end)
