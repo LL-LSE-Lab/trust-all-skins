@@ -19,12 +19,12 @@
 ### 使用 lip 安装（推荐）
 
 ```bash
-lip install github.com/yourusername/trust-all-skins
+lip install github.com/YUMU1658/trust-all-skins
 ```
 
 ### 手动安装
 
-1. 从 [Releases](https://github.com/yourusername/trust-all-skins/releases) 下载最新版本
+1. 从 [Releases](https://github.com/YUMU1658/trust-all-skins/releases) 下载最新版本
 2. 解压到 `plugins/` 目录下
 3. 启动服务器
 
@@ -49,7 +49,7 @@ plugins/
 
 1. 克隆仓库：
    ```bash
-   git clone https://github.com/yourusername/trust-all-skins.git
+   git clone https://github.com/YUMU1658/trust-all-skins.git
    cd trust-all-skins
    ```
 
