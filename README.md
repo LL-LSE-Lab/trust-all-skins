@@ -12,7 +12,7 @@
 
 ## 工作原理
 
-此模组 Hook `ServerNetworkHandler::_decideIfSkinIsTrusted` 与 `PlayerListEntry::write`，在 26.10 上将皮肤数据中的 `mIsTrustedSkin` 设为 `TrustedSkinFlag::True`。客户端开启「仅允许受信任的皮肤」时仍可显示自定义皮肤。
+此模组 Hook `ServerNetworkHandler::_decideIfSkinIsTrusted` 与 `PlayerListPacket` 的两个 `$write` 序列化入口，在 26.51 上调用 `SerializedSkinRef::setIsTrustedSkinFlag(TrustedSkinFlag::True)`。客户端开启「仅允许受信任的皮肤」时仍可显示自定义皮肤。
 
 ## 安装
 
@@ -42,7 +42,7 @@ plugins/
 
 - [xmake](https://xmake.io/) 
 - [Visual Studio 2022](https://visualstudio.microsoft.com/)（C++ 桌面 workload）
-- [LLVM](https://releases.llvm.org/)（提供 `clang-cl`，与 LeviLamina 26.10 一致）
+- [LLVM](https://releases.llvm.org/)（提供 `clang-cl`，与 LeviLamina 26.51 一致）
 - [Git](https://git-scm.com/)
 
 ### 构建步骤
@@ -74,7 +74,7 @@ plugins/
 
 ## 兼容性
 
-- LeviLamina **26.10.x**（与 BDS **26.10.4** 对应）
+- LeviLamina **26.51.x**（与 BDS **1.26.51** 服务端对应）
 - Minecraft Bedrock Edition 专用服务器
 
 ## 注意事项

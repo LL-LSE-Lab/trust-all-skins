@@ -9,14 +9,14 @@ option("target_type")
 option_end()
 
 add_requireconfs("levilamina.rapidjson", {override = true, version = "2025.02.05"})
-add_requires("levilamina 26.10.14", {configs = {target_type = get_config("target_type")}})
-add_requires("levibuildscript")
+add_requires("levilamina 26.51.6", {configs = {target_type = get_config("target_type")}})
+add_requires("levibuildscript 0.6.1")
 
 if not has_config("vs_runtime") then
     set_runtimes("MD")
 end
 
-local mod_version = "0.1.0"
+local mod_version = "0.1.1"
 set_version(mod_version)
 
 target("trust-all-skins")
